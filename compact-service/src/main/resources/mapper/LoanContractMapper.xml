@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.easyloan.compact.mapper.LoanContractMapper">
+    <resultMap id="compact" type="com.easyloan.bean.beans.LoanContract" autoMapping="true">
+        <id column="id" property="id"></id>
+        <association property="borrowerInfo" autoMapping="true" javaType="com.easyloan.bean.beans.BorrowerInfo">
+            <id property="id" column="bId"></id>
+        </association>
+        <association property="contractAttribute" autoMapping="true" javaType="com.easyloan.bean.beans.ContractAttribute">
+            <id column="attId" property="id"></id>
+        </association>
+    </resultMap>
+    <select id="queryLoanContractsByMap" resultMap="compact">
+        SELECT lc.*,bi.`id` bId,bi.*,ca.`id` attId,ca.*
+        FROM nplm_loan_contract lc
+        INNER JOIN nplm_borrower_info bi
+        ON lc.`borrower_id`=bi.`id`
+        INNER JOIN nplm_contract_attribute ca
+        ON lc.`ID`=ca.`loan_contract_id`
+        <where>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(loanContractNum)">
+                lc.LOAN_CONTRACT_NUM=#{loanContractNum}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(clientName)">
+                bi.CLIENT_NAME=#{clientName}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(identityNum)">
+                bi.IDENTITY_NUM=#{identityNum}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(city)">
+                ca.city=#{city}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(deptName)">
+                ca.dept_name=#{deptName}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(contractType)">
+                lc.CONTRACT_TYPE=#{contractType}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(signDateStart)">
+                ca.sign_date &gt; #{signDateStart}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(signDateEnd)">
+                ca.sign_date &lt; #{signDateEnd}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(repaymentDateStart)">
+                ca.RepayDay &gt; #{repaymentDateStart}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(repaymentDateEnd)">
+                ca.RepayDay &lt; #{repaymentDateEnd}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(businessType)">
+                ca.business_type=#{businessType}
+            </if>
+        </where>
+        LIMIT #{pageNo},#{pageSize}
+    </select>
+    <select id="queryLoanContractCountByMap" resultType="java.lang.Long">
+        SELECT COUNT(lc.id)
+        FROM nplm_loan_contract lc
+        INNER JOIN nplm_borrower_info bi
+        ON lc.`borrower_id`=bi.`id`
+        INNER JOIN nplm_contract_attribute ca
+        ON lc.`ID`=ca.`loan_contract_id`
+        <where>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(loanContractNum)">
+                lc.LOAN_CONTRACT_NUM=#{loanContractNum}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(clientName)">
+                bi.CLIENT_NAME=#{clientName}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(identityNum)">
+                bi.IDENTITY_NUM=#{identityNum}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(city)">
+                ca.city=#{city}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(deptName)">
+                ca.dept_name=#{deptName}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(contractType)">
+                lc.CONTRACT_TYPE=#{contractType}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(signDateStart)">
+                ca.sign_date &gt; #{signDateStart}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(signDateEnd)">
+                ca.sign_date &lt; #{signDateEnd}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(repaymentDateStart)">
+                ca.RepayDay &gt; #{repaymentDateStart}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(repaymentDateEnd)">
+                ca.RepayDay &lt; #{repaymentDateEnd}
+            </if>
+            <if test="@com.easyloan.common.utils.MyUtils@isNotEmpty(businessType)">
+                ca.business_type=#{businessType}
+            </if>
+        </where>
+    </select>
+    <select id="queryCompact4Repay" resultMap="compact">
+        SELECT lc.*,bi.`id` bId,bi.*,ca.`id` attId,ca.*
+        FROM nplm_loan_contract lc
+        INNER JOIN nplm_borrower_info bi
+        ON lc.`borrower_id`=bi.`id`
+        INNER JOIN nplm_contract_attribute ca
+        ON lc.`ID`=ca.`loan_contract_id`
+        WHERE lc.LOAN_CONTRACT_NUM=#{loanContractNum}
+    </select>
+</mapper>

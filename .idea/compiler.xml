@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="compact-service" />
+        <module name="compact-web" />
+        <module name="easyloan-bean" />
+        <module name="easyloan-common-util" />
+        <module name="easyloan-interface" />
+        <module name="easyloan-service-util" />
+        <module name="easyloan-web-util" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="compact-server" target="1.8" />
+      <module name="compact-service" target="1.8" />
+      <module name="compact-web" target="1.8" />
+      <module name="easyloan-bean" target="1.8" />
+      <module name="easyloan-common" target="1.8" />
+      <module name="easyloan-common-util" target="1.8" />
+      <module name="easyloan-interface" target="1.8" />
+      <module name="easyloan-parent" target="1.8" />
+      <module name="easyloan-service-util" target="1.8" />
+      <module name="easyloan-utils" target="1.8" />
+      <module name="easyloan-web-util" target="1.8" />
+      <module name="que-server" target="1.8" />
+      <module name="registry-center" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
